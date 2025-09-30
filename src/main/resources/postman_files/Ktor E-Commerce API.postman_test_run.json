@@ -1,0 +1,703 @@
+{
+	"id": "e40a2e48-7d3d-4565-ba99-0955dc27a55f",
+	"name": "Ktor E-Commerce API",
+	"timestamp": "2025-09-30T11:19:42.277Z",
+	"collection_id": "39870959-0c0cfb73-2ed3-46c5-8936-75b93339b7e2",
+	"folder_id": 0,
+	"environment_id": "39870959-56c2ba68-95e0-4c85-8e95-d4f4c847afba",
+	"totalPass": 48,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-09-30T11:19:34.051Z",
+	"totalFail": 3,
+	"results": [
+		{
+			"id": "012a5efa-1198-4f9c-903b-1e64b4fecc7d",
+			"name": "Авторизация и получение токена",
+			"url": "http://localhost:8080/login",
+			"time": 730,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response time is less than 500ms": false,
+				"Content-Type is present": true,
+				"Response has correct auth structure": true,
+				"Save tokens to environment": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 500ms": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Content-Type is present": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has correct auth structure": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Save tokens to environment": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				730
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response time is less than 500ms": false,
+					"Content-Type is present": true,
+					"Response has correct auth structure": true,
+					"Save tokens to environment": true
+				}
+			]
+		},
+		{
+			"id": "b88a23e3-3f8f-4439-af1b-46d46e85e034",
+			"name": "Обновить токен",
+			"url": "http://localhost:8080/refresh",
+			"time": 662,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Debug response": true,
+				"Status code is 200": true,
+				"Response has new tokens": true,
+				"Update tokens in environment": true
+			},
+			"testPassFailCounts": {
+				"Debug response": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has new tokens": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Update tokens in environment": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				662
+			],
+			"allTests": [
+				{
+					"Debug response": true,
+					"Status code is 200": true,
+					"Response has new tokens": true,
+					"Update tokens in environment": true
+				}
+			]
+		},
+		{
+			"id": "38377a6a-4717-4bdb-9885-af25a80e644e",
+			"name": "Создание пользователя",
+			"url": "http://localhost:8080/users",
+			"time": 741,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Response time is less than 500ms": false,
+				"Response has user data": true,
+				"Save user ID to environment": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 500ms": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response has user data": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Save user ID to environment": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				741
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Response time is less than 500ms": false,
+					"Response has user data": true,
+					"Save user ID to environment": true
+				}
+			]
+		},
+		{
+			"id": "a457d525-409e-4cc6-929e-de04b7775ddd",
+			"name": "Все пользователи",
+			"url": "http://localhost:8080/users",
+			"time": 437,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response time is less than 500ms": true,
+				"Response has correct user list structure": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 500ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has correct user list structure": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				437
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response time is less than 500ms": true,
+					"Response has correct user list structure": true
+				}
+			]
+		},
+		{
+			"id": "14a46884-28d5-43f3-8a66-eb7de31720c9",
+			"name": "Пользователь по id",
+			"url": "http://localhost:8080/users/3",
+			"time": 222,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response time is less than 500ms": true,
+				"Response has user data": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 500ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has user data": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				222
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response time is less than 500ms": true,
+					"Response has user data": true
+				}
+			]
+		},
+		{
+			"id": "ff3bbfea-8310-491c-8c0f-fe486565432d",
+			"name": "Изменение пользователя",
+			"url": "http://localhost:8080/users/3",
+			"time": 636,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response time is less than 500ms": false,
+				"Response has updated user data": true,
+				"User data was updated": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 500ms": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response has updated user data": {
+					"pass": 1,
+					"fail": 0
+				},
+				"User data was updated": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				636
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response time is less than 500ms": false,
+					"Response has updated user data": true,
+					"User data was updated": true
+				}
+			]
+		},
+		{
+			"id": "3f9c93b0-9c92-4753-8a54-fd6aaf0e525b",
+			"name": "Удаление пользователя",
+			"url": "http://localhost:8080/users/3",
+			"time": 461,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response time is less than 500ms": true,
+				"Response has success message": true,
+				"Clear user ID from environment": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 500ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has success message": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Clear user ID from environment": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				461
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response time is less than 500ms": true,
+					"Response has success message": true,
+					"Clear user ID from environment": true
+				}
+			]
+		},
+		{
+			"id": "849cc0f7-4a8d-4688-93ad-2c66f31ef632",
+			"name": "Все продукты",
+			"url": "http://localhost:8080/products",
+			"time": 225,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response time is less than 500ms": true,
+				"Response has correct products structure": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 500ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has correct products structure": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				225
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response time is less than 500ms": true,
+					"Response has correct products structure": true
+				}
+			]
+		},
+		{
+			"id": "8989123b-7e12-407f-b8f7-b534270843c3",
+			"name": "Все продукты с фильтрацией",
+			"url": "http://localhost:8080/products?minPrice=50",
+			"time": 219,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response time is less than 500ms": true,
+				"Products filtered by min price": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 500ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Products filtered by min price": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				219
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response time is less than 500ms": true,
+					"Products filtered by min price": true
+				}
+			]
+		},
+		{
+			"id": "8a3c04bc-9ca3-4ebe-90f0-83c226627ff5",
+			"name": "Создание продукта",
+			"url": "http://localhost:8080/products",
+			"time": 222,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Response has product data": true,
+				"Save product ID to environment": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has product data": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Save product ID to environment": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				222
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Response has product data": true,
+					"Save product ID to environment": true
+				}
+			]
+		},
+		{
+			"id": "cf3cd6fb-8b1c-484c-be42-ab8c98c82624",
+			"name": "Изменение продукта",
+			"url": "http://localhost:8080/products/3",
+			"time": 439,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Product data was updated": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Product data was updated": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				439
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Product data was updated": true
+				}
+			]
+		},
+		{
+			"id": "120a328d-a35a-4e2a-81f5-c64353ef7cce",
+			"name": "Создание заказа",
+			"url": "http://localhost:8080/orders",
+			"time": 240,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Response time is less than 500ms": true,
+				"Response has order data": true,
+				"Save order ID to environment": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 500ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has order data": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Save order ID to environment": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				240
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Response time is less than 500ms": true,
+					"Response has order data": true,
+					"Save order ID to environment": true
+				}
+			]
+		},
+		{
+			"id": "a6832867-8529-4779-81dd-5d13bc84af14",
+			"name": "Получение заказов пользователей",
+			"url": "http://localhost:8080/orders",
+			"time": 233,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response time is less than 500ms": true,
+				"Response has correct orders structure": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 500ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has correct orders structure": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				233
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response time is less than 500ms": true,
+					"Response has correct orders structure": true
+				}
+			]
+		},
+		{
+			"id": "92764a1a-31e1-48f3-bedf-646cd2069fb8",
+			"name": "Получение только того заказа который создал пользователь",
+			"url": "http://localhost:8080/orders/1",
+			"time": 442,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has complete order data": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has complete order data": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				442
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has complete order data": true
+				}
+			]
+		},
+		{
+			"id": "a77d8c20-d178-45a7-ab39-89e36d77240b",
+			"name": "Инвалидация токена",
+			"url": "http://localhost:8080/logout",
+			"time": 218,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response time is less than 500ms": true,
+				"Response has success message": true,
+				"Clear tokens from environment": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 500ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has success message": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Clear tokens from environment": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				218
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response time is less than 500ms": true,
+					"Response has success message": true,
+					"Clear tokens from environment": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 6127,
+	"collection": {
+		"requests": [
+			{
+				"id": "012a5efa-1198-4f9c-903b-1e64b4fecc7d",
+				"method": "POST"
+			},
+			{
+				"id": "b88a23e3-3f8f-4439-af1b-46d46e85e034",
+				"method": "POST"
+			},
+			{
+				"id": "38377a6a-4717-4bdb-9885-af25a80e644e",
+				"method": "POST"
+			},
+			{
+				"id": "a457d525-409e-4cc6-929e-de04b7775ddd",
+				"method": "GET"
+			},
+			{
+				"id": "14a46884-28d5-43f3-8a66-eb7de31720c9",
+				"method": "GET"
+			},
+			{
+				"id": "ff3bbfea-8310-491c-8c0f-fe486565432d",
+				"method": "PUT"
+			},
+			{
+				"id": "3f9c93b0-9c92-4753-8a54-fd6aaf0e525b",
+				"method": "DELETE"
+			},
+			{
+				"id": "849cc0f7-4a8d-4688-93ad-2c66f31ef632",
+				"method": "GET"
+			},
+			{
+				"id": "8989123b-7e12-407f-b8f7-b534270843c3",
+				"method": "GET"
+			},
+			{
+				"id": "8a3c04bc-9ca3-4ebe-90f0-83c226627ff5",
+				"method": "POST"
+			},
+			{
+				"id": "cf3cd6fb-8b1c-484c-be42-ab8c98c82624",
+				"method": "PUT"
+			},
+			{
+				"id": "120a328d-a35a-4e2a-81f5-c64353ef7cce",
+				"method": "POST"
+			},
+			{
+				"id": "a6832867-8529-4779-81dd-5d13bc84af14",
+				"method": "GET"
+			},
+			{
+				"id": "92764a1a-31e1-48f3-bedf-646cd2069fb8",
+				"method": "GET"
+			},
+			{
+				"id": "a77d8c20-d178-45a7-ab39-89e36d77240b",
+				"method": "POST"
+			}
+		]
+	}
+}
