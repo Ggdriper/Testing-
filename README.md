@@ -1,40 +1,50 @@
-# ktor-kt2
+Все прикладные файлы находяться по маршруту ktor-kt2\src\main\resources\postman_files
 
-This project was created using the [Ktor Project Generator](https://start.ktor.io).
 
-Here are some useful links to get you started:
+Взгляд на базу данных H2
 
-- [Ktor Documentation](https://ktor.io/docs/home.html)
-- [Ktor GitHub page](https://github.com/ktorio/ktor)
-- The [Ktor Slack chat](https://app.slack.com/client/T09229ZC6/C0A974TJ9). You'll need
-  to [request an invite](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) to join.
 
-## Features
+<img width="672" height="379" alt="image" src="https://github.com/user-attachments/assets/0c34440b-77ca-4fd1-b876-823ae1b3501e" />
 
-Here's a list of features included in this project:
 
-| Name                                               | Description                                                 |
-|----------------------------------------------------|-------------------------------------------------------------|
-| [Routing](https://start.ktor.io/p/routing-default) | Allows to define structured routes and associated handlers. |
+Взгляд на коллекцию
 
-## Building & Running
 
-To build or run the project, use one of the following tasks:
+<img width="282" height="585" alt="image" src="https://github.com/user-attachments/assets/39ff342f-312e-4c42-87e2-827be39c43e4" />
 
-| Task                          | Description                                                          |
-|-------------------------------|----------------------------------------------------------------------|
-| `./gradlew test`              | Run the tests                                                        |
-| `./gradlew build`             | Build everything                                                     |
-| `buildFatJar`                 | Build an executable JAR of the server with all dependencies included |
-| `buildImage`                  | Build the docker image to use with the fat JAR                       |
-| `publishImageToLocalRegistry` | Publish the docker image locally                                     |
-| `run`                         | Run the server                                                       |
-| `runDocker`                   | Run using the local docker image                                     |
 
-If the server starts successfully, you'll see the following output:
+Взгляд на environment
 
-```
-2024-12-04 14:32:45.584 [main] INFO  Application - Application started in 0.303 seconds.
-2024-12-04 14:32:45.682 [main] INFO  Application - Responding at http://0.0.0.0:8080
-```
+
+<img width="1473" height="358" alt="image" src="https://github.com/user-attachments/assets/ee6bd1c1-5b04-494b-8a60-05549f9ed226" />
+
+
+Взгляд на тесты
+
+
+<img width="1470" height="751" alt="image" src="https://github.com/user-attachments/assets/a0049089-1482-466b-af01-723af9d1c8a4" />
+<img width="1449" height="480" alt="image" src="https://github.com/user-attachments/assets/d4273a7c-7bf3-40dd-bb44-21803b32d12d" />
+<img width="1463" height="495" alt="image" src="https://github.com/user-attachments/assets/7694e191-6b67-4733-9a79-b0a4dc8586aa" />
+<img width="1454" height="439" alt="image" src="https://github.com/user-attachments/assets/780661cd-f38e-4f24-b866-eec4931b08fe" />
+<img width="1462" height="463" alt="image" src="https://github.com/user-attachments/assets/7599d9ae-62c1-43bb-82ff-5e09b337ccdb" />
+
+
+Взгляд на основной код коллекции pre-req
+
+
+<img width="770" height="675" alt="image" src="https://github.com/user-attachments/assets/036a61f5-0a22-48a1-8243-a8459a7f14a6" />
+<img width="874" height="508" alt="image" src="https://github.com/user-attachments/assets/a58e32ce-3670-48ca-a885-8b155a1e1b6c" />
+
+
+
+
+
+
+
+
+
+
+
+
+
 
