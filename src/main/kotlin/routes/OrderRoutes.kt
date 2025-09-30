@@ -26,6 +26,7 @@ data class OrderCreateResponse(
 fun Route.orderRoutes() {
 
     authenticate("auth-jwt") {
+        // Создание заказа
         post("/orders") {
             try {
                 val principal = call.principal<JWTPrincipal>()
@@ -100,7 +101,6 @@ fun Route.orderRoutes() {
 
                 if (result.first) {
                     val order = result.second as Order
-                    // Используем сериализуемый объект вместо Map
                     val response = OrderCreateResponse(
                         orderId = order.id.value,
                         total = order.total,
@@ -118,6 +118,7 @@ fun Route.orderRoutes() {
             }
         }
 
+        // Получение всех заказов пользователя
         get("/orders") {
             try {
                 val principal = call.principal<JWTPrincipal>()
@@ -185,6 +186,79 @@ fun Route.orderRoutes() {
 
             } catch (e: Exception) {
                 println("Error getting orders: ${e.message}")
+                call.respond(HttpStatusCode.InternalServerError, mapOf("error" to "Internal server error"))
+            }
+        }
+
+        // Получение конкретного заказа по ID
+        get("/orders/{id}") {
+            try {
+                val orderId = call.parameters["id"]?.toIntOrNull()
+                if (orderId == null) {
+                    call.respond(HttpStatusCode.BadRequest, mapOf("error" to "Invalid order ID"))
+                    return@get
+                }
+
+                val principal = call.principal<JWTPrincipal>()
+                val userId = principal?.getClaim("userId", Int::class)
+                val userRole = principal?.getClaim("role", String::class)
+
+                println("Getting order $orderId for user: $userId, role: $userRole")
+
+                val order = transaction {
+                    try {
+                        Order.findById(orderId)
+                    } catch (e: Exception) {
+                        println("Error finding order: ${e.message}")
+                        null
+                    }
+                }
+
+                if (order == null) {
+                    call.respond(HttpStatusCode.NotFound, mapOf("error" to "Order not found"))
+                    return@get
+                }
+
+                // Проверка прав доступа
+                if (userRole != "ADMIN" && order.userId.value != userId) {
+                    call.respond(HttpStatusCode.Forbidden, mapOf("error" to "Access denied"))
+                    return@get
+                }
+
+                val orderResponse = transaction {
+                    try {
+                        val items = OrderItem.find { OrderItems.orderId eq order.id }.map { item ->
+                            val product = Product.findById(item.productId.value)
+                            if (product == null) {
+                                OrderItemResponse(0, "Unknown Product", item.quantity, item.price)
+                            } else {
+                                OrderItemResponse(
+                                    product.id.value,
+                                    product.name,
+                                    item.quantity,
+                                    item.price
+                                )
+                            }
+                        }
+
+                        OrderResponse(
+                            order.id.value,
+                            order.userId.value,
+                            order.total,
+                            order.status,
+                            Instant.ofEpochSecond(order.createdAt).toString(),
+                            items
+                        )
+                    } catch (e: Exception) {
+                        println("Error building order response: ${e.message}")
+                        throw e
+                    }
+                }
+
+                call.respond(orderResponse)
+
+            } catch (e: Exception) {
+                println("Error getting order: ${e.message}")
                 call.respond(HttpStatusCode.InternalServerError, mapOf("error" to "Internal server error"))
             }
         }
