@@ -9,6 +9,7 @@ import com.example.database.Users
 import com.example.models.TokenConfig
 import com.example.plugins.configureAuthentication
 import com.example.plugins.configureSerialization
+import com.example.plugins.configureSwagger
 import com.example.routes.authRoutes
 import com.example.routes.userRoutes
 import com.example.routes.productRoutes
@@ -97,6 +98,7 @@ fun Application.module() {
 
     configureSerialization()
     configureAuthentication()
+    configureSwagger()
 
     routing {
         authRoutes(tokenConfig)

@@ -1,0 +1,504 @@
+openapi: 3.0.3
+info:
+  title: Ktor E-Commerce API
+  description: E-Commerce API with JWT Authentication built with Ktor
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@example.com
+
+servers:
+  - url: http://localhost:8080
+    description: Development server
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    LoginRequest:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          example: "miha"
+        password:
+          type: string
+          example: "123"
+
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        refreshToken:
+          type: string
+
+    RefreshTokenRequest:
+      type: object
+      required:
+        - refreshToken
+      properties:
+        refreshToken:
+          type: string
+          example: "178db1e8-e1e6-4d25-829e-7ec3a941ed3a"
+
+    UserRequest:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          example: "miha"
+        password:
+          type: string
+          example: "123"
+        role:
+          type: string
+          enum: [USER, ADMIN]
+          example: "USER"
+
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 3
+        username:
+          type: string
+          example: "miha"
+        role:
+          type: string
+          example: "USER"
+
+    ProductRequest:
+      type: object
+      required:
+        - name
+        - price
+        - stock
+      properties:
+        name:
+          type: string
+          example: "Keyboard"
+        description:
+          type: string
+          example: "Mechanical keyboard with RGB"
+        price:
+          type: number
+          format: double
+          example: 89.99
+        stock:
+          type: integer
+          example: 25
+
+    ProductResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Keyboard"
+        description:
+          type: string
+          example: "Mechanical keyboard with RGB"
+        price:
+          type: number
+          format: double
+          example: 89.99
+        stock:
+          type: integer
+          example: 25
+
+    OrderItemRequest:
+      type: object
+      required:
+        - productId
+        - quantity
+      properties:
+        productId:
+          type: integer
+          example: 1
+        quantity:
+          type: integer
+          example: 1
+
+    OrderRequest:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemRequest'
+
+    OrderResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        userId:
+          type: integer
+          example: 3
+        total:
+          type: number
+          format: double
+          example: 199.99
+        status:
+          type: string
+          enum: [PENDING, PROCESSING, COMPLETED, CANCELLED]
+          example: "PENDING"
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              productId:
+                type: integer
+              productName:
+                type: string
+              quantity:
+                type: integer
+              price:
+                type: number
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Invalid credentials"
+        message:
+          type: string
+          example: "Username or password is incorrect"
+
+paths:
+  # Authentication endpoints
+  /login:
+    post:
+      summary: User login and token generation
+      description: Authenticate user and return JWT tokens
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Successfully authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /refresh:
+    post:
+      summary: Refresh access token
+      description: Get new access token using refresh token
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+      responses:
+        '200':
+          description: Tokens successfully refreshed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Invalid or expired refresh token
+
+  /logout:
+    post:
+      summary: Invalidate token
+      description: Logout and invalidate current token
+      tags: [Authentication]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successfully logged out
+        '401':
+          description: Unauthorized
+
+  # User endpoints
+  /users:
+    get:
+      summary: Get all users
+      description: Retrieve list of all users (Admin only)
+      tags: [Users]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Users list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - admin role required
+
+    post:
+      summary: Create user
+      description: Create a new user (Admin only)
+      tags: [Users]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Validation error
+        '403':
+          description: Forbidden - admin role required
+
+  /users/{id}:
+    get:
+      summary: Get user by ID
+      description: Retrieve user details by ID
+      tags: [Users]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: User details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '404':
+          description: User not found
+
+    put:
+      summary: Update user
+      description: Update user information
+      tags: [Users]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '404':
+          description: User not found
+
+    delete:
+      summary: Delete user
+      description: Delete user account (Admin only)
+      tags: [Users]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: User deleted successfully
+        '403':
+          description: Forbidden - admin role required
+        '404':
+          description: User not found
+
+  # Product endpoints
+  /products:
+    get:
+      summary: Get all products
+      description: Retrieve list of all products with optional filtering
+      tags: [Products]
+      parameters:
+        - name: minPrice
+          in: query
+          schema:
+            type: number
+            format: double
+          description: Minimum price filter
+      responses:
+        '200':
+          description: Products list retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductResponse'
+
+    post:
+      summary: Create product
+      description: Create a new product (Admin only)
+      tags: [Products]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequest'
+      responses:
+        '201':
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductResponse'
+        '403':
+          description: Forbidden - admin role required
+
+  /products/{id}:
+    put:
+      summary: Update product
+      description: Update product information (Admin only)
+      tags: [Products]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequest'
+      responses:
+        '200':
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductResponse'
+        '403':
+          description: Forbidden - admin role required
+        '404':
+          description: Product not found
+
+  # Order endpoints
+  /orders:
+    get:
+      summary: Get orders
+      description: Retrieve orders (Users see their own, Admins see all)
+      tags: [Orders]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Orders list retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderResponse'
+
+    post:
+      summary: Create order
+      description: Create a new order from cart items
+      tags: [Orders]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '201':
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '400':
+          description: Validation error or insufficient stock
+
+  /orders/{id}:
+    get:
+      summary: Get order by ID
+      description: Retrieve order details by ID (Users can see their own, Admins can see all)
+      tags: [Orders]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Order details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '403':
+          description: Forbidden - order doesn't belong to user
+        '404':
+          description: Order not found

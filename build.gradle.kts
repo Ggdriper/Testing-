@@ -35,6 +35,15 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
+
+    // OpenAPI & Swagger
+    implementation("io.ktor:ktor-server-openapi:2.3.5")
+    implementation("io.ktor:ktor-server-swagger:2.3.5")
+
+    // Тестирование
+    testImplementation("io.ktor:ktor-server-test-host:2.3.5")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.9.0")
+    testImplementation("io.mockk:mockk:1.13.5")
 }
 
 application {
